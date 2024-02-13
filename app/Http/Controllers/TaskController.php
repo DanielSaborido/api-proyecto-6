@@ -9,30 +9,49 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with(['user', 'category'])->paginate(5);
-        return response()->json(['tasks' => $tasks]);
+        return Task::with(['user', 'category'])->paginate(5);
     }
 
-    public function show(Task $task)
+    public function show($id)
     {
-        return response()->json(['task' => $task]);
+        $exist = Task::with(['user', 'category'])->find($id);
+        return isset($exist) ?
+            response()->json(['data' => $exist, 'message' =>'Task found']):
+            response()->json(['error' => true, 'message' =>'Task not found']);
     }
 
     public function store(Request $request)
     {
-        $task = Task::create($request->all());
-        return response()->json(['task' => $task], 201);
+        $inputs = $request->input();
+        $response = Task::create($inputs);
+        return response()->json(['data' => $response, 'message' => 'Task created']);
     }
 
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
-        $task->update($request->all());
-        return response()->json(['task' => $task]);
+        $exist = Task::find($id);
+        if (!$exist) {
+            return response()->json(['error' => true, 'message' =>'Task not found']);
+        }
+
+        ($request->filled('title')) & $exist->title = $request->title;
+        ($request->filled('user_id')) & $exist->user_id = $request->user_id;
+        ($request->filled('category_id')) & $exist->category_id = $request->category_id;
+        ($request->filled('description')) & $exist->description = $request->description;
+        ($request->filled('due_date')) & $exist->due_date = $request->due_date;
+        ($request->filled('status')) & $exist->status = $request->status;
+        ($request->filled('priority')) & $exist->priority = $request->priority;
+
+        return response()->json(['data' => $exist, 'message' => 'Task updated']);
     }
 
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        $task->delete();
-        return response()->json(null, 204);
+        $exist = Task::find($id);
+        if (isset($exist)) {
+            $delete = Task::destroy($id);
+            return $delete ? response()->json(['data' => $exist,'message' =>'Task deleted']) : response()->json(['error' => true, 'message' => 'Failed to delete task']);
+        }
+        return response()->json(['error' => true, 'message' =>'Task not found']);
     }
 }
