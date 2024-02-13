@@ -9,30 +9,44 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('tasks')->get();
-        return response()->json(['categories' => $categories]);
+        return Category::with('tasks')->get();
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
-        return response()->json(['category' => $category]);
+        $exist = Category::with('tasks')->find($id);
+        return isset($exist) ?
+            response()->json(['data' => $exist, 'message' =>'Category found']):
+            response()->json(['error' => true, 'message' =>'Category not found']);
     }
 
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
-        return response()->json(['category' => $category], 201);
+        $inputs = $request->input();
+        $response = Category::create($inputs);
+        return response()->json(['data' => $response, 'message' => 'Category created']);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->update($request->all());
-        return response()->json(['category' => $category]);
+        $exist = Category::find($id);
+        if (!$exist) {
+            return response()->json(['error' => true, 'message' =>'Category not found']);
+        }
+
+        ($request->filled('name')) & $exist->name = $request->name;
+        ($request->filled('category_photo')) & $exist->category_photo = $request->category_photo;
+
+        return response()->json(['data' => $exist, 'message' => 'Category updated']);
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-        return response()->json(null, 204);
+        $exist = Category::find($id);
+        if (isset($exist)) {
+            $delete = Category::destroy($id);
+            return $delete ? response()->json(['data' => $exist,'message' =>'Category deleted']) : response()->json(['error' => true, 'message' => 'Failed to delete category']);
+        }
+        return response()->json(['error' => true, 'message' =>'Category not found']);
     }
 }
