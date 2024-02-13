@@ -21,23 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rutas para User
 Route::apiResource('/users', UserController::class);
-Route::apiResource('/users/{user}', UserController::class);
-Route::apiResource('/users', UserController::class);
-Route::apiResource('/users/{user}', UserController::class);
-Route::apiResource('/users/{user}', UserController::class);
-
-// Rutas para Task
-Route::apiResource('/tasks', TaskController::class);
-Route::apiResource('/tasks/{task}', TaskController::class);
-Route::apiResource('/tasks', TaskController::class);
-Route::apiResource('/tasks/{task}', TaskController::class);
-Route::apiResource('/tasks/{task}', TaskController::class);
-
-// Rutas para Category
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/categories/{category}', CategoryController::class);
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/categories/{category}', CategoryController::class);
-Route::apiResource('/categories/{category}', CategoryController::class);
+// Route::apiResource('/tasks', TaskController::class);
+// Route::apiResource('/categories', CategoryController::class);
