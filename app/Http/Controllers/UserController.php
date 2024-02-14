@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $exist = User::find($id);
+        $exist = User::with('tasks')->find($id);
         return isset($exist) ?
             response()->json(['data' => $exist, 'message' =>'User found']):
             response()->json(['error' => true, 'message' =>'User not found']);
