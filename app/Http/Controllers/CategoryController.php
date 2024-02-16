@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return Category::with('tasks')->get();
+        return Category::all();
     }
 
     public function show($id)
