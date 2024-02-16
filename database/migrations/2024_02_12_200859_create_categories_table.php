@@ -15,7 +15,7 @@ return new class extends Migration
         {
             $table->id();
             $table->string("name", 40)->unique();
-            $table->string('category_photo')->nullable();
+            $table->longText('category_photo')->nullable();
         });
     }
 
