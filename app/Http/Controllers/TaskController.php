@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return Task::with(['user', 'category'])->paginate(5);
+        return Task::with(['user', 'category'])->paginate(30);
     }
 
     public function show($id)
