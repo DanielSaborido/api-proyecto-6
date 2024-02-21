@@ -36,22 +36,22 @@ class Task extends Model
     protected $perPage = 5;
 
     // Método de Laravel que se ejecuta cuando se instancia un modelo
-    protected static function boot()
-    {
-        parent::boot();
-        //callback que recupera el id del autor y lo
-        // relaciona con el user_id=> no es un campo rellenable
-        // se rellena automáticamente con el id del usuario identificado
-        //Sólo se ejecutará si no estamos lanzando una operación desde consola,
-        //porque no tenemos el usuario identificado
-        if(!app()->runningInConsole())
-        {
-            self::creating(function (Task $task)
-            {
-                $task->user_id = auth()->id();
-            });
-        }
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     //callback que recupera el id del autor y lo
+    //     // relaciona con el user_id=> no es un campo rellenable
+    //     // se rellena automáticamente con el id del usuario identificado
+    //     //Sólo se ejecutará si no estamos lanzando una operación desde consola,
+    //     //porque no tenemos el usuario identificado
+    //     if(!app()->runningInConsole())
+    //     {
+    //         self::creating(function (Task $task)
+    //         {
+    //             $task->user_id = auth()->id();
+    //         });
+    //     }
+    // }
 
     // Relación muchos a uno, para saber a qué usuario pertenece la tarea
     public function user(): BelongsTo
