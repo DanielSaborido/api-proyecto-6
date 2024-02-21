@@ -44,13 +44,15 @@ class TaskController extends Controller
             return response()->json(['error' => true, 'message' =>'Task not found']);
         }
 
-        ($request->filled('title')) & $exist->title = $request->title;
-        ($request->filled('user_id')) & $exist->user_id = $request->user_id;
-        ($request->filled('category_id')) & $exist->category_id = $request->category_id;
-        ($request->filled('description')) & $exist->description = $request->description;
-        ($request->filled('due_date')) & $exist->due_date = $request->due_date;
-        ($request->filled('status')) & $exist->status = $request->status;
-        ($request->filled('priority')) & $exist->priority = $request->priority;
+        if ($request->filled('title')) $exist->title = $request->title;
+        if ($request->filled('user_id')) $exist->user_id = $request->user_id;
+        if ($request->filled('category_id')) $exist->category_id = $request->category_id;
+        if ($request->filled('description')) $exist->description = $request->description;
+        if ($request->filled('due_date')) $exist->due_date = $request->due_date;
+        if ($request->filled('status')) $exist->status = $request->status;
+        if ($request->filled('priority')) $exist->priority = $request->priority;
+
+        $exist->save();
 
         return response()->json(['data' => $exist, 'message' => 'Task updated']);
     }
