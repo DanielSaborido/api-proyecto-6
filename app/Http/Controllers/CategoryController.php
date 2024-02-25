@@ -34,8 +34,8 @@ class CategoryController extends Controller
             return response()->json(['error' => true, 'message' =>'Category not found']);
         }
 
-        ($request->filled('name')) & $exist->name = $request->name;
-        ($request->filled('category_photo')) & $exist->category_photo = $request->category_photo;
+        if ($request->filled('name')) $exist->name = $request->name;
+        if ($request->filled('category_photo')) $exist->category_photo = $request->category_photo;
 
         return response()->json(['data' => $exist, 'message' => 'Category updated']);
     }

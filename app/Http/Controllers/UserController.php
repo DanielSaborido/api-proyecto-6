@@ -34,10 +34,10 @@ class UserController extends Controller
             return response()->json(['error' => true, 'message' =>'User not found']);
         }
 
-        ($request->filled('name')) & $exist->name = $request->name;
-        ($request->filled('email')) & $exist->email = $request->email;
-        ($request->filled('password')) & $exist->password = $request->password;
-        ($request->filled('profile_photo')) & $exist->profile_photo = $request->profile_photo;
+        if ($request->filled('name')) $exist->name = $request->name;
+        if ($request->filled('email')) $exist->email = $request->email;
+        if ($request->filled('password')) { $exist->password = bcrypt($request->password); }
+        if ($request->filled('profile_photo')) $exist->profile_photo = $request->profile_photo;
 
         return $exist->save() ?
             response()->json(['data' => $exist, 'message' => 'User updated']):
