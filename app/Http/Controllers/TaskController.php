@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -23,18 +25,28 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'user_id' => 'required|exists:users,id',
-            'category_id' => 'nullable|exists:categories,id',
+            'title' => 'required',
             'description' => 'required',
             'due_date' => 'nullable|date',
             'status' => 'required|in:complete,processing,pending',
             'priority' => 'required|boolean',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $inputs = $request->input();
-        $response = Task::create($inputs);
-        return response()->json(['data' => $response, 'message' => 'Task created']);
+        $user = Auth::user();
+        if ($request->filled('new_category_name')) {
+            $newCategory = new Category([
+                'name' => $request->new_category_name,
+                'category_photo' => $request->new_category_photo,
+            ]);
+            $newCategory->user_id = $user->id;
+            $newCategory->save();
+            $request->merge(['category_id' => $newCategory->id]);
+        }
+
+        $task = Task::create($request->all());
+
+        return response()->json(['data' => $task, 'message' => 'Task created']);
     }
 
     public function update(Request $request, $id)

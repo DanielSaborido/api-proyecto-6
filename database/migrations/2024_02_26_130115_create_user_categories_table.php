@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateUserCategoriesTable extends Migration
 {
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('user_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 40)->unique();
-            $table->longText('category_photo')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('user_categories');
     }
 }
+

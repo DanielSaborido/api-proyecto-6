@@ -9,10 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
-    // por defecto Laravel crea timpestamps y esta variable es true
-    // con false le indicamos al ORM que no existen
-    public $timestamps = false;
-    // evitar ataques de asignación masiva
     protected $fillable = [
         "name",
         'category_photo',
