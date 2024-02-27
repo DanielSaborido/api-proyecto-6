@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        return Task::with(['user', 'category'])->paginate(30);
+        return Task::with(['user', 'category', 'user_category'])->paginate(30);
     }
 
     public function show($id)
     {
-        $exist = Task::with(['user', 'category'])->find($id);
+        $exist = Task::with(['user', 'category', 'user_category'])->find($id);
         return isset($exist) ?
             response()->json(['data' => $exist, 'message' =>'Task found']):
             response()->json(['error' => true, 'message' =>'Task not found']);
@@ -25,28 +23,19 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
+            'user_id' => 'required|exists:users,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'user_category_id' => 'nullable|exists:userCategories,id',
             'description' => 'required',
             'due_date' => 'nullable|date',
             'status' => 'required|in:complete,processing,pending',
             'priority' => 'required|boolean',
-            'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $user = Auth::user();
-        if ($request->filled('new_category_name')) {
-            $newCategory = new Category([
-                'name' => $request->new_category_name,
-                'category_photo' => $request->new_category_photo,
-            ]);
-            $newCategory->user_id = $user->id;
-            $newCategory->save();
-            $request->merge(['category_id' => $newCategory->id]);
-        }
-
-        $task = Task::create($request->all());
-
-        return response()->json(['data' => $task, 'message' => 'Task created']);
+        $inputs = $request->input();
+        $response = Task::create($inputs);
+        return response()->json(['data' => $response, 'message' => 'Task created']);
     }
 
     public function update(Request $request, $id)
@@ -59,6 +48,7 @@ class TaskController extends Controller
         if ($request->filled('title')) $exist->title = $request->title;
         if ($request->filled('user_id')) $exist->user_id = $request->user_id;
         if ($request->filled('category_id')) $exist->category_id = $request->category_id;
+        if ($request->filled('user_category_id')) $exist->user_category_id = $request->user_category_id;
         if ($request->filled('description')) $exist->description = $request->description;
         if ($request->filled('due_date')) $exist->due_date = $request->due_date;
         if ($request->filled('status')) $exist->status = $request->status;

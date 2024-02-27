@@ -17,6 +17,7 @@ class Task extends Model
         'title',
         'user_id',
         'category_id',
+        'user_category_id',
         'description',
         'due_date',
         'status',
@@ -63,6 +64,10 @@ class Task extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+    public function userCategory(): BelongsTo
+    {
+        return $this->belongsTo(UserCategory::class);
     }
 
     // Poner la hora en formato legible para nosotros

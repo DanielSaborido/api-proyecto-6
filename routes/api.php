@@ -27,4 +27,4 @@ Route::apiResource('/users', UserController::class);
 Route::post('/check-password', [AuthController::class, 'checkPassword']);
 Route::apiResource('/tasks', TaskController::class);
 Route::apiResource('/categories', CategoryController::class);
-Route::resource('user-categories', UserCategoryController::class);
+Route::resource('/user-categories', UserCategoryController::class);

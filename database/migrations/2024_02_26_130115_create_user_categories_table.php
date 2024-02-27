@@ -10,10 +10,10 @@ class CreateUserCategoriesTable extends Migration
     {
         Schema::create('user_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('name');
+            $table->string('name', 40)->unique();
+            $table->longText('category_photo')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
         });
     }
 

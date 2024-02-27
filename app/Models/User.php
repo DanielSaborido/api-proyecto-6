@@ -37,6 +37,6 @@ class User extends Authenticatable
 
     public function categories(): HasMany
     {
-        return $this->hasMany(UserCategory::class, 'user_id');
+        return $this->hasMany(UserCategory::class);
     }
 }
