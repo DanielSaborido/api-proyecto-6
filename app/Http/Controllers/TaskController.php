@@ -47,13 +47,17 @@ class TaskController extends Controller
 
         if ($request->filled('title')) $exist->title = $request->title;
         if ($request->filled('user_id')) $exist->user_id = $request->user_id;
-        if ($request->filled('category_id')) $exist->category_id = $request->category_id;
-        if ($request->filled('user_category_id')) $exist->user_category_id = $request->user_category_id;
         if ($request->filled('description')) $exist->description = $request->description;
         if ($request->filled('due_date')) $exist->due_date = $request->due_date;
         if ($request->filled('status')) $exist->status = $request->status;
         if ($request->filled('priority')) $exist->priority = $request->priority;
-
+        if ($request->filled('category_id')) {
+            $exist->category_id = $request->category_id;
+            $exist->user_category_id = null;
+        } elseif ($request->filled('user_category_id')) {
+            $exist->category_id = null;
+            $exist->user_category_id = $request->user_category_id;
+        }
         $exist->save();
 
         return response()->json(['data' => $exist, 'message' => 'Task updated']);
