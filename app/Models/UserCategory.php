@@ -13,6 +13,7 @@ class UserCategory extends Model
     protected $fillable = [
         "name",
         'category_photo',
+        'user_id',
     ];
 
     //Definimos la relación entre Category y Task
@@ -25,7 +26,7 @@ class UserCategory extends Model
     {
         return $this->hasMany(Task::class);
     }
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

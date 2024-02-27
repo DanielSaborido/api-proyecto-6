@@ -26,7 +26,7 @@ class TaskController extends Controller
             'title' => 'required|max:255',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
-            'user_category_id' => 'nullable|exists:userCategories,id',
+            'user_category_id' => 'nullable|exists:user_categories,id',
             'description' => 'required',
             'due_date' => 'nullable|date',
             'status' => 'required|in:complete,processing,pending',

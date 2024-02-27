@@ -35,7 +35,7 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    public function categories(): HasMany
+    public function userCategories(): HasMany
     {
         return $this->hasMany(UserCategory::class);
     }

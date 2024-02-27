@@ -9,11 +9,11 @@ class CreateUserCategoriesTable extends Migration
     public function up()
     {
         Schema::create('user_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 40)->unique();
+            $table->bigIncrements('id');
+            $table->string('name', 40);
             $table->longText('category_photo')->nullable();
-            $table->timestamps();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->timestamps();
         });
     }
 
