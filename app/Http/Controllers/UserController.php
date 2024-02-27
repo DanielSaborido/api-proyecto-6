@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -34,14 +36,28 @@ class UserController extends Controller
             return response()->json(['error' => true, 'message' =>'User not found']);
         }
 
+        $currentPassword = $request->input('current_password');
+        if ($request->filled('password') && !Hash::check($currentPassword, $exist->password)) {
+            return response()->json(['error' => true, 'message' => 'Incorrect current password']);
+        }
+
         if ($request->filled('name')) $exist->name = $request->name;
         if ($request->filled('email')) $exist->email = $request->email;
-        if ($request->filled('password')) { $exist->password = bcrypt($request->password); }
-        if ($request->filled('profile_photo')) $exist->profile_photo = $request->profile_photo;
+        if ($request->filled('password')) {
+            $exist->password = bcrypt($request->password);
+        }
+        if ($request->hasFile('profile_photo')) {
+            $photoPath = $request->file('profile_photo')->store('profile-photos', 'public');
+            if ($exist->profile_photo) {
+                Storage::disk('public')->delete($exist->profile_photo);
+            }
 
-        return $exist->save() ?
-            response()->json(['data' => $exist, 'message' => 'User updated']):
-            response()->json(['error' => true, 'message' => 'Failed to update user']);
+            $exist->profile_photo = $photoPath;
+        }
+
+        $exist->save();
+
+        return  response()->json(['data' => $exist, 'message' => 'User updated']);
     }
 
     public function destroy($id)
