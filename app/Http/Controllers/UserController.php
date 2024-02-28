@@ -46,13 +46,17 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $exist->password = bcrypt($request->password);
         }
-        if ($request->hasFile('profile_photo')) {
-            $photoPath = $request->file('profile_photo')->store('profile-photos', 'public');
+        if ($request->filled('profile_photo')) {
+            $base64Image = $request->input('profile_photo');
+            $formatExtension = explode('/', mime_content_type($base64Image))[1];
+            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            $imageName = 'profile_photo_' . time() . '.' . $formatExtension;
+            $imagePath = 'profile-photos/' . $imageName;
+            Storage::disk('public')->put($imagePath, $image);
             if ($exist->profile_photo) {
                 Storage::disk('public')->delete($exist->profile_photo);
             }
-
-            $exist->profile_photo = $photoPath;
+            $exist->profile_photo = $imagePath;
         }
 
         $exist->save();
