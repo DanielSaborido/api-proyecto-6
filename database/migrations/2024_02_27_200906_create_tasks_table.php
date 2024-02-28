@@ -13,7 +13,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Category::class)->nullable()->constrained();
-            $table->foreignIdFor(\App\Models\UserCategory::class)->nullable()->constrained();
+            $table->foreignIdFor(\App\Models\UserCategory::class)->nullable()->constrained()->onDelete('cascade');
             $table->text('description');
             $table->dateTime('creation_date')->default(now());
             $table->dateTime('update_date')->default(now());

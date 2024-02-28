@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserCategoryController extends Controller
 {
@@ -20,6 +21,22 @@ class UserCategoryController extends Controller
             : response()->json(['error' => true, 'message' => 'Category not found']);
     }
 
+    private function handleCategoryPhoto(Request $request, $model)
+    {
+        if ($request->filled('category_photo')) {
+            $base64Image = $request->input('category_photo');
+            $formatExtension = explode('/', mime_content_type($base64Image))[1];
+            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            $imageName = 'category_photo_' . time() . '.' . $formatExtension;
+            $imagePath = 'category-photos/' . $imageName;
+            Storage::disk('public')->put($imagePath, $image);
+            if ($model->category_photo) {
+                Storage::disk('public')->delete($model->category_photo);
+            }
+            $model->category_photo = $imagePath;
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,6 +47,7 @@ class UserCategoryController extends Controller
 
         $inputs = $request->input();
         $response = UserCategory::create($inputs);
+        $this->handleCategoryPhoto($request, $response);
         return response()->json(['data' => $response, 'message' => 'Category created']);
     }
 
@@ -40,7 +58,9 @@ class UserCategoryController extends Controller
             return response()->json(['error' => true, 'message' =>'Category not found']);
         }
         if ($request->filled('name')) $exist->name = $request->name;
-        if ($request->filled('category_photo')) $exist->category_photo = $request->category_photo;
+        $this->handleCategoryPhoto($request, $exist);
+
+        $exist->save();
 
         return response()->json(['data' => $exist, 'message' => 'Category updated']);
     }
