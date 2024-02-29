@@ -65,7 +65,7 @@ class Task extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function userCategory(): BelongsTo
+    public function user_category(): BelongsTo
     {
         return $this->belongsTo(UserCategory::class);
     }
