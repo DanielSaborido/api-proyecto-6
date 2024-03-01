@@ -1,39 +1,46 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
-# Instalar dependencias
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
     git \
-    curl
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-# Limpiar cache
+# Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensiones
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install gd
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Instalar composer
+# Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Establecer directorio de trabajo
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid $user && \
+    mkdir -p /home/$user && \
+    chown -R $user:$user /home/$user
+
+# Set working directory
 WORKDIR /var/www
 
-# Copiar el proyecto existente
-COPY . /var/www
+# Copy composer.json and composer.lock files to the container
+COPY composer.json composer.lock ./
 
-# Instalar dependencias del proyecto
-RUN composer install
+# Install dependencies with Composer
+RUN composer install --no-scripts --no-autoloader --no-dev
 
-CMD ["php-fpm"]
+# Copy the rest of your Laravel application into the container
+COPY . .
 
-EXPOSE 9000
+# Generate the autoloader files
+RUN composer dump-autoload --optimize
+
+USER $user
