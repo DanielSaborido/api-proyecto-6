@@ -1,0 +1,602 @@
+{
+	"info": {
+		"_postman_id": "e7f87ecc-b23e-4ed9-ab4a-041cec214730",
+		"name": "Api proyecto 6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32918693"
+	},
+	"item": [
+		{
+			"name": "user controller",
+			"item": [
+				{
+					"name": "getUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response content type is 'text/xml'\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    pm.expect(responseData).to.exist.and.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is in a valid XML format\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"\r",
+									"    pm.expect(responseData).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/users",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/users/1",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postUser",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Juan\",\"email\":\"hola2@hola.es\",\"password\":\"hola\",\"profile_photo\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/users",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/users/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/users/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task controler",
+			"item": [
+				{
+					"name": "getTasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/tasks",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTask",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/tasks/4",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postTask",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Tarea de ejemplo\",\r\n    \"user_id\": 1,\r\n    \"category_id\": null,\r\n    \"user_category_id\": 1,\r\n    \"description\": \"Esta es una tarea de ejemplo\",\r\n    \"due_date\": null,\r\n    \"status\": \"pending\",\r\n    \"priority\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/tasks",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTask",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"priority\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/tasks/4",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTask",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/tasks/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category controller",
+			"item": [
+				{
+					"name": "getCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/categories",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCategory",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"CursosDesarrolloWeb\",\"email\":\"laravel69@blogweb.es\",\"password\":\"hola\",\"profile_photo\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/categories",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/categories/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/categories/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User category controller Copy",
+			"item": [
+				{
+					"name": "getCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/user-categories",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"user-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/user-categories?user_id=1",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"user-categories"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postCategory",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"CursosDesarrolloWeb\",\"user_id\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/user-categories",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"user-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/user-categories/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"user-categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://api-proyecto-6.test/api/user-categories/3",
+							"protocol": "http",
+							"host": [
+								"api-proyecto-6",
+								"test"
+							],
+							"path": [
+								"api",
+								"user-categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
