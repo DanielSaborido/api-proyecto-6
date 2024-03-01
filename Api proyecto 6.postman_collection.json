@@ -54,7 +54,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/users",
+							"raw": "http://localhost:8080/api/users",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -74,7 +74,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/users/1",
+							"raw": "http://localhost:8080/api/users/1",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -115,7 +115,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/users",
+							"raw": "http://localhost:8080/api/users",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -144,7 +144,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/users/3",
+							"raw": "http://localhost:8080/api/users/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -165,7 +165,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/users/3",
+							"raw": "http://localhost:8080/api/users/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -191,7 +191,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/tasks",
+							"raw": "http://localhost:8080/api/tasks",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -211,7 +211,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/tasks/4",
+							"raw": "http://localhost:8080/api/tasks/4",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -252,7 +252,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/tasks",
+							"raw": "http://localhost:8080/api/tasks",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -281,7 +281,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/tasks/4",
+							"raw": "http://localhost:8080/api/tasks/4",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -302,7 +302,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/tasks/3",
+							"raw": "http://localhost:8080/api/tasks/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -328,7 +328,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/categories",
+							"raw": "http://localhost:8080/api/categories",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -348,7 +348,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/categories/1",
+							"raw": "http://localhost:8080/api/categories/1",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -389,7 +389,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/categories",
+							"raw": "http://localhost:8080/api/categories",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -418,7 +418,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/categories/3",
+							"raw": "http://localhost:8080/api/categories/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -439,7 +439,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/categories/3",
+							"raw": "http://localhost:8080/api/categories/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -465,7 +465,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/user-categories",
+							"raw": "http://localhost:8080/api/user-categories",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -485,7 +485,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/user-categories?user_id=1",
+							"raw": "http://localhost:8080/api/user-categories?user_id=1",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -531,7 +531,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/user-categories",
+							"raw": "http://localhost:8080/api/user-categories",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -560,7 +560,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/user-categories/3",
+							"raw": "http://localhost:8080/api/user-categories/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
@@ -581,7 +581,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://api-proyecto-6.test/api/user-categories/3",
+							"raw": "http://localhost:8080/api/user-categories/3",
 							"protocol": "http",
 							"host": [
 								"api-proyecto-6",
