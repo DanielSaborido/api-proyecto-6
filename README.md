@@ -8,6 +8,6 @@ una vez terminado de montarse revisar si los contenedores estan en funcionamient
 
 una vez todas las partes del contenedor esten en funcionamiento se ejecuta el comando
 
-docker-compose exec laravel.test php artisan migrate --seed
+docker-compose exec laravel.test php artisan migrate:refresh --seed
 
 que lo que hace es crear las tablas de la base de datos para que se pueda llamar a la api sin que diga que no existe el elemento.
